@@ -1,0 +1,332 @@
+#include <iostream>
+#include <cstdlib>
+#include <string>
+#include <ctime>
+#include <windows.h>
+using namespace std;
+//general
+int health = 200;
+int chance;
+int monster;
+
+int dungeonmake = 1;
+string answer;
+//attacking
+char attack;
+int damage = 5;
+int frozen;
+int monsterdamage;
+int monsterlife;
+//weapons
+int freezable;
+int shining = 0;
+int epic = 0;
+int randfrozen;
+int boneknife = 0;
+int ironsword = 0;
+//shop
+int gold = 0;
+int shopitems;
+int shopitemnumber;
+//voids
+void monstermaker();
+void dungeonmaker();
+void slimebattle();
+//void skeletonbattle();
+//void zombiebattle();
+//void frostkingbattle();
+
+
+int main() {
+
+	srand((int)time(0));
+	cout <<"          >_________________________________"<<endl;
+	cout << "[########[]_________________________________>" << endl;
+	cout << "	  \> " << endl;
+	cout << "this a dungeon of ever changing rooms that you must enter to appease the gods." << endl;
+
+	cout << "inside, you will find monsters, loot, and glory, and maybe even a secret." << endl;
+
+	cout << "in the first room..." << endl;
+
+	dungeonmake = 1;
+
+	while (dungeonmake == 1) {
+		cout << " " << endl;
+		Sleep(2000);
+		dungeonmaker();
+	}
+}
+
+
+
+
+//DUNGEON MAKER
+///////////////////////////////////////////////////
+void dungeonmaker() {
+
+	int dungeonchance = rand() % 100 + 1;
+
+
+
+	if (dungeonchance >= 0 && dungeonchance <=59) {
+		cout << "this room has a monster in it." << endl;
+		Sleep(2000);
+		cout << " " << endl;
+		monstermaker();
+	}
+
+
+	//SHOP
+	////////////////////////////////////////////////
+	
+	else if (dungeonchance >= 60 && dungeonchance <=65) {
+		cout << "this one has a trader." << endl;
+		Sleep(2000);
+		cout << " " << endl;
+		cout << "you have " << gold << " gold!" << endl;
+		while (shopitemnumber <= 5) {
+			int shopitems=rand () % 4+1;
+			if (shopitems == 1) {
+				cout << "bone knife, gives a bonus against skeleton." << endl;
+				shopitemnumber++;
+			}
+			else if (shopitems == 1) {
+
+				shopitemnumber++;
+			}
+			else if (shopitems == 1) {
+				shopitemnumber++;
+			}
+			else if (shopitems == 1) {
+				shopitemnumber++;
+			}
+			else if (shopitems == 1) {
+				shopitemnumber++;
+			}
+			else if (shopitems == 1) {
+				shopitemnumber++;
+			}
+			else if (shopitems == 1) {
+				shopitemnumber++;
+			}
+			else if (shopitems == 1) {
+				shopitemnumber++;
+			}
+			else if (shopitems == 1) {
+				shopitemnumber++;
+			}
+			else if (shopitems == 1) {
+				shopitemnumber++;
+			}
+		}
+		
+
+		dungeonmaker();
+
+	}
+
+
+
+	//POTIONS
+	/////////////////////////////////////////////
+	else if (dungeonchance >= 66 && dungeonchance <=83) {
+		Sleep(2000);
+		cout << " " << endl;
+		cout << "you found a bubbling pot. drink the contents?" << endl;
+		getline(cin, answer);
+		if (answer.compare("Yes") == 0) {
+			Sleep(2000);
+			cout << " " << endl;
+			int potionchance = rand() % 2;
+			if (potionchance == 0) {
+				cout << "you got a health potion you recovered 10 health!" << endl;
+				health = health + 10;
+				dungeonmaker();
+				
+			}
+			if (potionchance == 1) {
+				cout << " you got a poison potion! you lost 10 health!" << endl;
+				health = health - 10;
+				dungeonmaker();
+				
+			}
+		}
+		else {
+			Sleep(2000);
+			cout << " " << endl;
+			cout << "you turn around and go into a new room" << endl;
+			dungeonmaker();
+		}
+	}
+
+
+	//TREASURE
+	//////////////////////////////////////////////////////////
+	else if (dungeonchance > 84 && dungeonchance <= 89) {
+		cout << "you found a treasure room! you got 100 gold and the diamond sword" << endl;
+		damage = damage + 7;
+	}
+	//TREASURE CHEST
+	/////////////////////////////////////////////////////////
+	else if (dungeonchance > 89 && dungeonchance <=99) {
+		cout << "you found a treasure chest." << endl;
+		int treasurechance = rand() % 100 + 1;
+		if (treasurechance >= 0 && treasurechance <= 32) {
+			cout << "you found the rusted shield! damage cut by 25%" << endl;
+			monsterdamage = monsterdamage *.75;
+		}
+		if (treasurechance >= 33 && treasurechance <= 65) {
+			cout << "you found the shining shield! damage cut in half, and deals some damage to monsters!" << endl;
+			monsterdamage = monsterdamage / 2;
+			shining = shining + 3;
+		}
+		if (treasurechance >= 66 && treasurechance <= 99) {
+			cout << "you found the steel sword!" << endl;
+			damage = damage + 5;
+		}
+		if (treasurechance == 100) {
+			cout << "you found the epic sword! attack up 50, and your epicness deals damage to monsters!" << endl;
+			damage = damage + 50;
+			epic = epic + 20;
+		}
+		dungeonmaker();
+	}
+
+
+
+	//EXIT
+	///////////////////////////////////////////////////////
+	else if (dungeonchance == 100) {
+		cout << "you found a secret room! you found the exit!." << endl;
+		cout << "do you leave or go back in to the dungeon? warning! this is a 1/100 chance, dont mess it up." << endl;
+		getline(cin, answer);
+		if (answer.compare("L") == 0 || answer.compare("l") == 0 || answer.compare("leave") == 0 || answer.compare("Leave") == 0) {
+			cout << "are you SURE you want to go back to the dungeon." << endl;
+			if (answer.compare("L") == 0 || answer.compare("l") == 0 || answer.compare("leave") == 0 || answer.compare("Leave") == 0) {
+				cout << "are you SURE SURE you want to go back." << endl;
+				if (answer.compare("L") == 0 || answer.compare("l") == 0 || answer.compare("leave") == 0 || answer.compare("Leave") == 0) {
+					cout << "*sigh* fine." << endl;
+					dungeonmaker();
+				}
+				else {
+				cout << "you left the dungeon! the clan welcomes you back as a hero!" << endl;
+			}
+			}
+			else {
+			cout << "you left the dungeon! the clan welcomes you back as a hero!" << endl;
+			}
+			
+			}
+		else {
+			cout << "you left the dungeon! the clan welcomes you back as a hero!" << endl;
+		}
+		
+
+		}
+		
+		
+	}
+
+
+
+
+
+
+
+
+
+	//MONSTER CHOOSER
+	///////////////////////////////////////////////////////////
+void monstermaker() {
+
+	int monsterchance = (rand() % 100) + 1;
+	if (monsterchance <= 33&& monsterchance >=0) {
+		cout << "you encountered a slime! it has 5 attack and 30 defense, but destroys your weapon." << endl;
+		monsterdamage = 10;
+		cout << "do you attack, A, or run, R?" << endl;
+		cin >> attack;
+		if (attack =='R'||attack =='r') {
+			cout << "as you run, the slime deals 10 damage at your back." << endl;
+			health = health - 10;
+			dungeonmaker();
+		}
+		else if (attack =='A'||attack=='a') {
+			slimebattle();
+			}
+		}
+
+
+
+
+	else if (monsterchance <=66 && monsterchance >=34) {
+		cout << "you ran into a skeleton. it has 10 attack and 50 health" << endl;
+		//skeletonbattle();
+		
+	}
+
+
+
+	if (monsterchance <= 99 && monsterchance >=67) {
+		cout << "you found a zombie. it has 10 attack and 50 health, but also deals poison damage." << endl;
+		//zombiebattle();
+	}
+
+
+
+
+	if (monsterchance == 100) {
+		cout << "Boss battle! you found the frost king! he has 200 health, and can freeze you! good luck..." << endl;
+		//frostkingbattle();
+	}
+}
+
+
+
+
+
+
+
+//SLIME FIGHT
+///////////////////////////////////////////
+void slimebattle() {
+	cout << "you have begun the battle!" << endl;
+	monsterlife = 30;
+	monsterdamage = 5;
+	int chance = (rand() % 100) + 1;
+	if (chance >= 50) {
+		cout << "you get to go first." << endl;
+	}
+	else {
+		cout << "the slime goes first!" << endl;
+		cout << "the monster deals " << monsterdamage << " to you! you lose your weapon!" << endl;
+		health = health - monsterdamage;
+		cout << "you have " << health << " left" << endl;
+	}
+	while (health > 0) {
+		while (monsterlife > 0) {
+			cout << "do you attack or defend? attacking deals damage, defending lessens damage taken." << endl;
+			getline(cin, answer);
+			if (answer.compare("A") == 0|| answer.compare("a") == 0 || answer.compare("Attack") == 0 || answer.compare("attack")==0) {
+				cout << "you deal " << damage << " damage to the slime! " << endl;
+				monsterlife = monsterlife - damage;
+				cout << "the slime has " << monsterlife << " life left!" << endl;
+			}
+			else if (answer.compare("D") == 0 || answer.compare("d") == 0 || answer.compare("Defend") == 0 || answer.compare("defend") == 0) {
+				cout << "you chose to defend! you take 20% less damage! you deal "<<damage/2<<" damage." << endl;
+				monsterdamage = monsterdamage*.8;
+			}
+			cout << "the monster deals " << monsterdamage << " to you!" << endl;
+			health = health - monsterdamage;
+			cout << "you have " << health << " health left!" << endl;
+		}
+		if (monsterlife <= 0) {
+			cout << "you won the battle! on to the next dungeon." << endl;
+			dungeonmaker();
+		}
+	}
+	if (health <= 0) {
+		cout << "you lost the game!" << endl;
+		main();
+	}
+}
